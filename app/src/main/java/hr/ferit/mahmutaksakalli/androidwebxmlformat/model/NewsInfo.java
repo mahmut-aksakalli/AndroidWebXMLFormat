@@ -10,7 +10,6 @@ public class NewsInfo {
     @Element(name = "category") private String category;
     @Element(name = "description") private String description;
     @Element(name = "pubDate") private String pubDate;
-
     @Element(name = "enclosure") private Enclosure enclosure;
 
 
