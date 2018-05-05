@@ -11,6 +11,7 @@ public class NewsInfo {
     @Element(name = "description") private String description;
     @Element(name = "pubDate") private String pubDate;
     @Element(name = "enclosure") private Enclosure enclosure;
+    @Element(name = "link") private String link;
 
 
     public String getTitle() {
@@ -33,5 +34,8 @@ public class NewsInfo {
         return enclosure;
     }
 
+    public String getLink() {
+        return link;
+    }
 }
 

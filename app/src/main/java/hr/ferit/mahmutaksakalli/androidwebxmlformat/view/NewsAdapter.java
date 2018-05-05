@@ -1,7 +1,10 @@
 package hr.ferit.mahmutaksakalli.androidwebxmlformat.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +24,12 @@ import hr.ferit.mahmutaksakalli.androidwebxmlformat.model.NewsInfo;
 class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
     private List<NewsInfo> mNews;
+    private NewsClickCallback mCallback;
 
-    public NewsAdapter(List<NewsInfo> news){
+    public NewsAdapter(List<NewsInfo> news, NewsClickCallback onNewsClickListener){
         mNews = new ArrayList<>();
         this.refreshData(news);
+        mCallback = onNewsClickListener;
     }
 
     @NonNull
@@ -32,7 +37,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_new, parent, false);
-        return new NewsViewHolder(view);
+        return new NewsViewHolder(view, mCallback);
     }
 
     @Override
@@ -70,10 +75,16 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
         @BindView(R.id.category) TextView category;
         @BindView(R.id.pubdate)  TextView pubDate;
 
-        public NewsViewHolder(View itemView) {
+        public NewsViewHolder(View itemView, final NewsClickCallback callback) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callback.onClick(mNews.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }

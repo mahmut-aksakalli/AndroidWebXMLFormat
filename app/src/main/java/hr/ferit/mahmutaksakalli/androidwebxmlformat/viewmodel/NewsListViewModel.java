@@ -14,6 +14,9 @@ public class NewsListViewModel extends ViewModel {
     private MutableLiveData<List<NewsInfo>> mData =
             new MutableLiveData<>();
 
+    private MutableLiveData<List<String>> mCategories =
+            new MutableLiveData<>();
+
     public LiveData<List<NewsInfo>> getData() {
         return mData;
     }
@@ -22,4 +25,11 @@ public class NewsListViewModel extends ViewModel {
         mData.postValue(data);
     }
 
+    public LiveData<List<String>> getCategories() {
+        return mCategories;
+    }
+
+    public void setCategories(List<String> data){
+        mCategories.postValue(data);
+    }
 }
